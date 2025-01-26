@@ -23,8 +23,8 @@ jobs:
               with:
                   target_repo_token: ${{ secrets.GITHUB_TOKEN }}
                   upstream_sync_repo: bia-pain-bache/BPB-Worker-Panel
-                  upstream_sync_branch: master
-                  target_sync_branch: master
+                  upstream_sync_branch: main
+                  target_sync_branch: main
                   test_mode: false
 
             - name: Check for Failure
