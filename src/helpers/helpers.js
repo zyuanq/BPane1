@@ -49,7 +49,7 @@ export async function handlePanel(request, env) {
     }
         
     const { proxySettings } = await getDataset(request, env);
-    const pwd = await env.bpb.get('pwd');
+    const pwd = await env.kv.get('pwd');
     if (pwd && !auth) return Response.redirect(`${globalThis.urlOrigin}/login`, 302);
     const isPassSet = pwd?.length >= 8;
     return await renderHomePage(proxySettings, isPassSet);
@@ -57,7 +57,7 @@ export async function handlePanel(request, env) {
 
 export async function fallback(request) {
     const url = new URL(request.url);
-    url.hostname = 'www.speedtest.net';
+    url.hostname = globalThis.fallbackDomain;
     url.protocol = 'https:';
     request = new Request(url, request);
     return await fetch(request);
