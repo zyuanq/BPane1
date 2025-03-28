@@ -77,10 +77,6 @@ function buildSingBoxDNS (proxySettings, outboundAddrs, isWarp) {
 
     const rules = [
         outboundRule,
-        {
-            domain: "www.gstatic.com",
-            server: "dns-local" 
-        },
         { 
             domain: [
                 "raw.githubusercontent.com", 
@@ -403,6 +399,8 @@ function buildSingBoxVLOutbound (proxySettings, remark, address, port, host, sni
             path: path,
             type: "ws"
         },
+        tcp_fast_open: true,
+        tcp_multi_path: true,
         tag: remark
     };
 
@@ -440,6 +438,8 @@ function buildSingBoxTROutbound (proxySettings, remark, address, port, host, sni
             path: path,
             type: "ws"
         },
+        tcp_fast_open: true,
+        tcp_multi_path: true,
         tag: remark
     }
 

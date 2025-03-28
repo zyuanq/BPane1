@@ -8,7 +8,7 @@ import { getXrayCustomConfigs, getXrayWarpConfigs } from './cores-configs/xray';
 import { getSingBoxCustomConfig, getSingBoxWarpConfig } from './cores-configs/sing-box';
 import { getClashNormalConfig, getClashWarpConfig } from './cores-configs/clash';
 import { getHiddifyWarpConfigs, getNormalConfigs } from './cores-configs/normalConfigs';
-import { fallback, getMyIP, getWarpConfigFiles, handlePanel } from './helpers/helpers';
+import { fallback, getMyIP, getWarpConfigs, handlePanel } from './helpers/helpers';
 import { renderSecretsPage } from './pages/secrets';
 
 export default {
@@ -23,7 +23,9 @@ export default {
                         return await updateWarpConfigs(request, env);
                     
                     case '/get-warp-configs':
-                        return await getWarpConfigFiles(request, env);
+                        return client === 'amnezia' 
+                            ? await getWarpConfigs(request, env, true)
+                            : await getWarpConfigs(request, env)
 
                     case `/sub/${subPath}`:
                         if (client === 'sfa') return await getSingBoxCustomConfig(request, env, false);
@@ -38,6 +40,7 @@ export default {
 
                     case `/warpsub/${subPath}`:
                         if (client === 'clash') return await getClashWarpConfig(request, env);   
+                        if (client === 'clash-pro') return await getClashWarpConfig(request, env, true);   
                         if (client === 'singbox') return await getSingBoxWarpConfig(request, env, client);
                         if (client === 'hiddify-pro') return await getHiddifyWarpConfigs(request, env, true);
                         if (client === 'hiddify') return await getHiddifyWarpConfigs(request, env, false);
